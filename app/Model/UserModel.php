@@ -22,21 +22,19 @@
       }
 
       public function EmailExit($email){
-          $registerQuery = "SELECT * FROM users WHERE email=:email";
+          $sqlQuery = "SELECT * FROM users WHERE email=:email";
 //          $registerQuery->bindParam(':email', $email, PDO::PARAM_STR);
-          $result = Db::getDatabse()->query($registerQuery, array(':email'=>$email), $type='select');
-//          if($result){
-//             return true;
-//          }
-//          return false;
+          $result = Db::getDatabse()->query($sqlQuery, array(':email'=>$email), $type='select');
+//
          return $result ;
-          //write a query
-          //prepare a statement
-          // execute the statement
-          // its return the result
-
 
       }
+
+     public function validateUser($email, $password){
+         $sqlQuery = "SELECT id,username,email,password FROM users WHERE email = :email AND password = :password";
+          $result = Db::getDatabse()->query($sqlQuery, array(':email'=>$email, ':password'=>MD5($password)), $type='select');
+          return $result;
+     }
 
 
   }
